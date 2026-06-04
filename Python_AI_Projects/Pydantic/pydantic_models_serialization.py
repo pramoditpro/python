@@ -23,41 +23,22 @@ patient1 = Patient(**patient_dict)
 
 print(patient1)
 
+print("<<<<<<<<<<<<<<serialization>>>>>>>>>>>>>>> ")
 
 
-print(patient1.address.House_no)
-print(patient1.address.city)
-print(patient1.address.pin)
-print(patient1.address.state)
+temp = patient1.model_dump(exclude_unset=True)
 
+print(temp)
+print(type(temp))
 
+temp1 = Patient.model_validate(temp)
+print(temp1)
+print(type(temp1))
 
+temp2 = patient1.model_dump_json(exclude_unset=True)        
+print(temp2)
+print(type(temp2))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Better organization of related data (e.g., vitals, address, insurance)
-
-# Reusability: Use Vitals in multiple models (e.g., Patient, MedicalRecord)
-
-# Readability: Easier for developers and API consumers to understand
-
-# Validation: Nested models are validated automatically—no extra work needed
+temp3 = patient1.model_dump_json(exclude={'address': {'House_no'} })        
+print(temp3)
+print(type(temp3))
