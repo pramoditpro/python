@@ -4,12 +4,17 @@ from typing import List, Dict, Optional, Annotated
 class Patient(BaseModel):
 
     name: str
+    #name: str = Field(max_length=50, title='Name of the patient', description='Give the name of the patient in less than 50 chars', examples=['Pramod', 'Pradeep'])
+    #name: Annotated[str, Field(max_length=50, title='Name of the patient', description='Give the name of the patient in less than 50 chars', examples=['Pramod', 'Pradeep'])]   
     email: EmailStr
     age: int
     weight: float
     married: bool
     allergies: List[str]
+    #allergies: Annotated[Optional[List[str]], Field(default=None, max_length=5)]
+    #allergies: Optional[List[str]] = Field(default=None, max_length=5)
     contact_details: Dict[str, str]
+
 
     @field_validator('email')
     @classmethod
@@ -46,7 +51,7 @@ def update_patient_data(patient: Patient):
     print(patient.married)
     print('updated')
 
-patient_info = {'name':'Pramod', 'email':'abc@icici.com', 'age': '30', 'weight': 75.2, 'married': True, 'allergies': ['pollen', 'dust'], 'contact_details':{'phone':'2353462'}}
+patient_info = {'name':'Pramod', 'email':'abc@hdfc.com', 'age': '30', 'weight': 72.2, 'married': True, 'allergies': ['pollen', 'dust'], 'contact_details':{'phone':'2353462'}}
 
 patient1 = Patient(**patient_info) # validation -> type coercion
 
